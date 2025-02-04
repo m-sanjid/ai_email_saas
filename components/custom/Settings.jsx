@@ -16,6 +16,7 @@ import {
   AArrowUp,
 } from "lucide-react";
 import DropdownField from "./Settings/DropdownField";
+import ImagePreview from "./Settings/ImagePreview";
 
 const TextAlignOptions = [
   {
@@ -80,10 +81,35 @@ function Settings() {
     };
     setSelectedElement(updateElement);
   };
+  const onHandleOuterStyleChange = (fieldName, fieldValue) => {
+    let updateElement = {
+      ...selectedElement,
+      layout: {
+        ...selectedElement?.layout,
+        [selectedElement?.index]: {
+          ...selectedElement?.layout[selectedElement?.index],
+          outerStyle: {
+            ...selectedElement?.layout[selectedElement?.index]?.outerStyle,
+            [fieldName]: [fieldValue],
+          },
+        },
+      },
+    };
+    setSelectedElement(updateElement);
+  };
 
   return (
     <div className="p-5">
       <h2 className="font-bold text-xl">Settings</h2>
+      {element?.imageUrl && (
+        <ImagePreview
+          label={"Image Preview"}
+          value={element?.imageUrl}
+          onHandleInputChange={(value) =>
+            onHandleInputChange("imageUrl", value)
+          }
+        />
+      )}
       {element?.content && (
         <InputField
           label={"Content"}
@@ -164,9 +190,17 @@ function Settings() {
       {element?.style?.padding && (
         <InputStyleField
           label={"Padding"}
-          onHandleStyleChange={(value) => onHandleStyleChange("Padding", value)}
+          onHandleStyleChange={(value) => onHandleStyleChange("padding", value)}
         />
       )}
+
+      {element?.style?.margin && (
+        <InputStyleField
+          label={"Margin"}
+          onHandleStyleChange={(value) => onHandleStyleChange("margin", value)}
+        />
+      )}
+
       {element?.style?.borderRadius && (
         <SliderField
           label={"Border Radius"}
@@ -176,6 +210,7 @@ function Settings() {
           }
         />
       )}
+
       {element?.style?.fontWeight && (
         <DropdownField
           label={"Font Weight"}
@@ -186,6 +221,37 @@ function Settings() {
           }
         />
       )}
+      <div>
+        <h2 className="font-bold mb-2">Outer Style</h2>
+        {element?.outerStyle?.backgroundColor && (
+          <ColorPickerField
+            label="Background Color"
+            value={element?.outerStyle?.backgroundColor}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("backgroundColor", value)
+            }
+          />
+        )}
+        {element?.outerStyle?.justifyContent && (
+          <ToggleGroupField
+            label={"Align"}
+            value={element?.outerStyle?.justifyContent}
+            options={TextAlignOptions}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("justifyContent", value)
+            }
+          />
+        )}
+        {element?.outerStyle?.backgroundColor && (
+          <ColorPickerField
+            label="Background Color"
+            value={element?.style?.backgroundColor}
+            onHandleStyleChange={(value) =>
+              onHandleOuterStyleChange("backgroundColor", value)
+            }
+          />
+        )}
+      </div>
     </div>
   );
 }
