@@ -1,4 +1,5 @@
 import {
+  Columns,
   Columns2,
   Columns3,
   Columns4,
@@ -14,19 +15,19 @@ export default [
   },
   {
     label: "2 Column",
-    type: "column-2",
+    type: "column",
     numOfCol: 2,
     icon: Columns2,
   },
   {
     label: "3 Column",
-    type: "column-3",
+    type: "column",
     numOfCol: 3,
     icon: Columns3,
   },
   {
     label: "4 Column",
-    type: "column-4",
+    type: "column",
     numOfCol: 4,
     icon: Columns4,
   },

@@ -1,7 +1,7 @@
 import Canvas from "@/components/custom/Canvas";
 import EditorHeader from "@/components/custom/EditorHeader";
 import ElementsSideBar from "@/components/custom/ElementSideBar";
-import { Settings } from "lucide-react";
+import Settings from "@/components/custom/Settings";
 
 function Editor() {
   return (
