@@ -3,6 +3,7 @@ import React from "react";
 
 function InputStyleField({ label, value, onHandleStyleChange, type = "px" }) {
   const FormattedValue = (value_) => {
+    if (!value_) return 0;
     return Number(value_.toString().replace(type, ""));
   };
   return (
@@ -14,7 +15,7 @@ function InputStyleField({ label, value, onHandleStyleChange, type = "px" }) {
           value={FormattedValue(value)}
           onChange={(e) => onHandleStyleChange(e.target.value + type)}
         />
-        <h2 className="p-1.5 bg-gray-100 rounded-r-lg -ml-1">{style}</h2>
+        <h2 className="p-1.5 bg-gray-100 rounded-r-lg -ml-1">{type}</h2>
       </div>
     </div>
   );

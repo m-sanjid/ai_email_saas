@@ -22,7 +22,7 @@ function ColumnLayout({ layout }) {
     event.preventDefault();
     setDragOver({
       index: index,
-      columId: layout?.id,
+      columnId: layout?.id,
     });
   };
 
@@ -66,10 +66,11 @@ function ColumnLayout({ layout }) {
     const index = emailTemplate.findIndex((item) => item.id === layoutId);
     if (index > 0) {
       setEmailTemplate((prevItems) => {
-        const updatedItems = ([...prevItems][
-          //Swapping the current item with one above it
-          (updatedItems[index], updatedItems[index - 1])
-        ] = [updatedItems[index - 1], updatedItems[index]]);
+        const updatedItems = [...prevItems]; // Create a copy
+        [updatedItems[index], updatedItems[index - 1]] = [
+          updatedItems[index - 1],
+          updatedItems[index],
+        ];
         return updatedItems;
       });
     }
@@ -77,12 +78,13 @@ function ColumnLayout({ layout }) {
 
   const moveItemDown = (layoutId) => {
     const index = emailTemplate.findIndex((item) => item.id === layoutId);
-    if (index > 0) {
+    if (index < emailTemplate.length - 1) {
       setEmailTemplate((prevItems) => {
-        const updatedItems = ([...prevItems][
-          //Swapping the current item with one above it
-          (updatedItems[index], updatedItems[index + 1])
-        ] = [updatedItems[index + 1], updatedItems[index]]);
+        const updatedItems = [...prevItems]; // Create a copy
+        [updatedItems[index], updatedItems[index + 1]] = [
+          updatedItems[index + 1],
+          updatedItems[index],
+        ];
         return updatedItems;
       });
     }
@@ -103,8 +105,8 @@ function ColumnLayout({ layout }) {
             key={index}
             className={`flex items-center justify-center bg-white h-full w-full cursor-pointer
 border-blue-500
-${!layout?.[index]?.type && "bg-gray-100 border border-dashed"}
-  ${index == dragOver?.index && dragOver?.columId ? "bg-green-100" : ""}
+${!layout?.[index]?.type ? "bg-gray-100 border border-dashed" : ""}
+  ${index == dragOver?.index && dragOver?.columnId && "bg-green-200"}
 ${selectedElement?.layout?.id == layout?.id && selectedElement?.index == index && "border-blue-500 border-2"}
 `}
             onDragOver={(event) => onDragOverHandle(event, index)}

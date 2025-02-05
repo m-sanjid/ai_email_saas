@@ -19,28 +19,14 @@ import DropdownField from "./Settings/DropdownField";
 import ImagePreview from "./Settings/ImagePreview";
 
 const TextAlignOptions = [
-  {
-    value: "left",
-    icon: AlignLeft,
-  },
-  {
-    value: "center",
-    icon: AlignCenter,
-  },
-  {
-    value: "right",
-    icon: AlignRight,
-  },
+  { value: "left", icon: AlignLeft },
+  { value: "center", icon: AlignCenter },
+  { value: "right", icon: AlignRight },
 ];
+
 const TextTransformOptions = [
-  {
-    value: "uppercase",
-    icon: CaseUpper,
-  },
-  {
-    value: "lowercase",
-    icon: CaseLower,
-  },
+  { value: "uppercase", icon: CaseUpper },
+  { value: "lowercase", icon: CaseLower },
   {
     value: "capitalize",
     icon: AArrowUp,
@@ -52,8 +38,9 @@ function Settings() {
   const [element, setElement] = useState();
 
   useEffect(() => {
-    setElement(selectedElement?.layout?.[selectedElement?.index]);
-  }, []);
+    console.log(selectedElement?.layout[selectedElement?.index]);
+    setElement(selectedElement?.layout[selectedElement?.index]);
+  }, [selectedElement]);
 
   const onHandleInputChange = (fieldName, value) => {
     console.log(fieldName, "value" + value);
@@ -74,13 +61,14 @@ function Settings() {
           ...selectedElement?.layout[selectedElement?.index],
           style: {
             ...selectedElement?.layout[selectedElement?.index]?.style,
-            [fieldName]: [fieldValue],
+            [fieldName]: fieldValue,
           },
         },
       },
     };
     setSelectedElement(updateElement);
   };
+
   const onHandleOuterStyleChange = (fieldName, fieldValue) => {
     let updateElement = {
       ...selectedElement,
@@ -90,7 +78,7 @@ function Settings() {
           ...selectedElement?.layout[selectedElement?.index],
           outerStyle: {
             ...selectedElement?.layout[selectedElement?.index]?.outerStyle,
-            [fieldName]: [fieldValue],
+            [fieldName]: fieldValue,
           },
         },
       },
@@ -120,7 +108,7 @@ function Settings() {
       {element?.textarea && (
         <TextAreaField
           label={"Text Area"}
-          value={element?.textarea}
+          value={element?.textarea || ""}
           onHandleInputChange={(value) =>
             onHandleInputChange("textarea", value)
           }
@@ -190,6 +178,7 @@ function Settings() {
       {element?.style?.padding && (
         <InputStyleField
           label={"Padding"}
+          value={element?.style?.padding}
           onHandleStyleChange={(value) => onHandleStyleChange("padding", value)}
         />
       )}
@@ -197,6 +186,7 @@ function Settings() {
       {element?.style?.margin && (
         <InputStyleField
           label={"Margin"}
+          value={element?.style?.margin}
           onHandleStyleChange={(value) => onHandleStyleChange("margin", value)}
         />
       )}
@@ -239,15 +229,6 @@ function Settings() {
             options={TextAlignOptions}
             onHandleStyleChange={(value) =>
               onHandleOuterStyleChange("justifyContent", value)
-            }
-          />
-        )}
-        {element?.outerStyle?.backgroundColor && (
-          <ColorPickerField
-            label="Background Color"
-            value={element?.style?.backgroundColor}
-            onHandleStyleChange={(value) =>
-              onHandleOuterStyleChange("backgroundColor", value)
             }
           />
         )}

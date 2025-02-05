@@ -18,20 +18,26 @@ function Canvas({ viewHTMLCode, closeDialog }) {
 
   const onDragOver = (e) => {
     e.preventDefault();
+    console.log("Dragging over drop area");
     setDragOver(true);
-    console.log("Over..", dragOver);
   };
-  const onDropHandle = () => {
+
+  const onDropHandle = (event) => {
+    event.preventDefault();
     setDragOver(false);
     if (dragElementLayout?.dragLayout) {
-      setEmailTemplate((prev) => [...prev, dragElementLayout?.dragLayout]);
+      setEmailTemplate((prev) => [
+        ...prev,
+        { ...dragElementLayout.dragLayout },
+      ]);
     }
   };
 
   const getLayoutComponent = (layout) => {
-    if (layout?.type == "column") {
+    if (layout?.type === "column") {
       return <ColumnLayout layout={layout} />;
     }
+    return <div>Unknown Layout</div>;
   };
 
   useEffect(() => {
@@ -45,15 +51,16 @@ function Canvas({ viewHTMLCode, closeDialog }) {
       setHtmlCode(htmlContent);
     }
   };
+
   return (
     <div className="mt-20 flex justify-center">
       <div
-        className={`bg-white p-6 w-full ${screenSize === "desktop" ? "max-w-2xl" : "max-w-md"} ${dragOver && "bg-purple-200 p-4"}`}
+        className={`p-6 w-full ${screenSize === "desktop" ? "max-w-2xl" : "max-w-md"} ${dragOver ? "bg-purple-200 p-4" : "bg-white"}`}
         onDragOver={onDragOver}
-        onDrop={() => onDropHandle}
+        onDrop={onDropHandle}
         ref={htmlRef}
       >
-        {emailTemplate?.length > 0 ? (
+        {emailTemplate.length > 0 ? (
           emailTemplate.map((layout, index) => (
             <div key={index}>{getLayoutComponent(layout)}</div>
           ))

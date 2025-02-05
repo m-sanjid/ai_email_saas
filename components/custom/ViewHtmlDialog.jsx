@@ -1,14 +1,17 @@
 import React from "react";
 import {
   Dialog,
+  DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { DialogContent } from "@radix-ui/react-dialog";
 import { Copy } from "lucide-react";
 
 function ViewHtmlDialog({ openDialog, htmlCode, closeDialog }) {
+  const CopyCode = () => {
+    navigator.clipboard.writeText(htmlCode);
+  };
   return (
     <Dialog open={openDialog} onOpenChange={closeDialog}>
       <DialogContent>
@@ -16,7 +19,10 @@ function ViewHtmlDialog({ openDialog, htmlCode, closeDialog }) {
           <DialogTitle asChild>
             <div className="flex items-center justify-between">
               <h2>HTML Email Template</h2>
-              <Copy className="p-2 bg-gray-100 rounded-full h-9 w-9"
+              <Copy
+                className="p-2 bg-gray-100 rounded-full h-9 w-9"
+                onClick={CopyCode}
+              />
             </div>
           </DialogTitle>
           <DialogDescription asChild>

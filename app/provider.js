@@ -17,7 +17,7 @@ function Provider({ children }) {
   const [selectedElement, setSelectedElement] = useState();
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    if (typeof window !== "undefined") {
       const storage = JSON.parse(localStorage.getItem("userDetail"));
       const emailTemplateStorage = JSON.parse(
         localStorage.getItem("emailTemplate"),
@@ -32,22 +32,19 @@ function Provider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    if (typeof window !== "undefined") {
       localStorage.setItem("emailTemplate", JSON.stringify(emailTemplate));
     }
   }, [emailTemplate]);
 
   useEffect(() => {
     if (selectedElement) {
-      let updatedEmailTemplates = [];
-      emailTemplate.forEach((item, index) => {
-        if (item.id === selectedElement?.layout?.id) {
-          updatedEmailTemplates?.push(selectedElement?.layout);
-        } else {
-          updatedEmailTemplates(item);
-        }
-      });
-      setEmailTemplate(updatedEmailTemplates);
+      const updatedEmailTemplate = emailTemplate.map((item) =>
+        item && item.id === selectedElement?.layout?.id
+          ? selectedElement.layout
+          : item,
+      );
+      setEmailTemplate(updatedEmailTemplate);
     }
   }, [selectedElement]);
 
@@ -79,11 +76,7 @@ function Provider({ children }) {
 export default Provider;
 
 export const useUserDetail = () => useContext(UserDetailContext);
-
 export const useScreenSize = () => useContext(ScreenSizeContext);
-
 export const useDragElementLayout = () => useContext(DragDropLayoutElement);
-
 export const useEmailTemplate = () => useContext(EmailTemplateContext);
-
 export const useSelectedElement = () => useContext(SelectedElementContext);

@@ -30,7 +30,11 @@ function ElementsSideBar() {
       <h2 className="font-bold text-lg">Layouts</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {Layout.map((layout, index) => (
-          <div key={index} draggable onDragStart={() => onDragLayoutStart()}>
+          <div
+            key={index}
+            draggable
+            onDragStart={() => onDragLayoutStart(layout)}
+          >
             <ElementLayoutCard layout={layout} />
           </div>
         ))}

@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Code, Monitor, Smartphone } from "lucide-react";
 import { useScreenSize } from "@/app/provider";
 
-function EditorHeader(viewHTMLCode) {
+function EditorHeader({ viewHTMLCode }) {
   const { screenSize, setScreenSize } = useScreenSize();
   return (
     <div className="p-4 shadow-sm flex justify-between items-center">

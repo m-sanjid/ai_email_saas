@@ -1,9 +1,9 @@
 import { Slider } from "@/components/ui/slider";
 import React from "react";
 
-function SliderField({ label, value, onHandleStyleChange }) {
+function SliderField({ label, value, type = "px", onHandleStyleChange }) {
   const FormattedValue = (value_) => {
-    return Number(value_.toString().replace(type, ""));
+    return Number(value_.toString().replace(type, " "));
   };
   return (
     <div>
