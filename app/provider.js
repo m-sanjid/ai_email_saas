@@ -21,6 +21,7 @@ function Provider({ children }) {
       const storage = JSON.parse(localStorage.getItem("userDetail"));
       const emailTemplateStorage = JSON.parse(
         localStorage.getItem("emailTemplate"),
+        {},
       );
       setEmailTemplate(emailTemplateStorage ?? []);
       if (!storage?.email || !storage) {

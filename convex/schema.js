@@ -8,4 +8,10 @@ export default defineSchema({
     picture: v.string(),
     credits: v.number(),
   }),
+  emailTemplates: defineTable({
+    tid: v.string(),
+    design: v.any(),
+    description: v.any(),
+    email: v.string(),
+  }),
 });
