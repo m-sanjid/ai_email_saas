@@ -1,18 +1,19 @@
+"use client"
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { LogoImage } from "./Logo";
 
 function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-6 py-12 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="">
+      <div className="max-w-7xl mx-auto px-6 py-12 lg:px-8 border-t border-neutral-200 dark:border-neutral-800">
+        <motion.div initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeInOut" }}
+          className="grid grid-cols-1 md:grid-cols-4 gap-8 mx-auto max-w-4xl">
           <div className="col-span-1 md:col-span-2">
-            <Image src="/logo.svg" alt="Logo" width={120} height={40} className="invert" />
-            <p className="mt-4 text-sm">
-              Create beautiful, responsive email templates in minutes with the power of AI.
-              Perfect for marketers, designers, and businesses of all sizes.
-            </p>
+            <LogoImage />
           </div>
           <div>
             <h3 className="font-semibold mb-4">Product</h3>
@@ -32,9 +33,9 @@ function Footer() {
               <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
-        </div>
-        <div className="mt-12 pt-8 border-t border-gray-800 text-sm text-center">
-          <p>&copy; {new Date().getFullYear()} Your Company. All rights reserved.</p>
+        </motion.div>
+        <div className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800 text-sm text-center">
+          <p>&copy; {new Date().getFullYear()} TEMMAIL. All rights reserved.</p>
         </div>
       </div>
     </footer>

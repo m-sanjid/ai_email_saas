@@ -38,17 +38,20 @@ function Pricing() {
   return (
     <section className="py-24">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        <div className="text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeInOut" }}
+          className="text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Simple, transparent pricing
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Choose the plan that's right for you
           </p>
-        </div>
+        </motion.div>
         <div className="mt-20 grid gap-6 md:grid-cols-5 md:gap-0">
           {plans.map((plan, index) => (
-            <Card key={index} className={`p-6 lg:p-8 col-span-1 w-full md:col-span-${plan.popular ? 3 : 2} ${plan.popular ? "dark:bg-zinc-900 md:-ml-2 md:scale-105" : ""}`}>
+            <Card key={index} className={`p-6 lg:p-8 col-span-1 w-full ${plan.popular ? "dark:bg-zinc-900 md:-ml-2 md:scale-105 md:col-span-3" : "md:col-span-2"}`}>
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -63,7 +66,7 @@ function Pricing() {
                     <span className="ml-1 text-2xl">/month</span>
                   </div>
                   <p className="text-muted-foreground">{plan.description}</p>
-                  <Button variant={plan.popular ? "default" : "outline"}>Get started</Button>
+                  <Button className={plan.popular ? "bg-gradient-to-tr inset-shadow-white/25 inset-shadow-2xs from-black/70 to-black/80 text-white dark:from-white/70 dark:to-white dark:text-black border" : "bg-gradient-to-tr from-white/50 to-white/50 dark:from-zinc-900 dark:to-zinc-800 text-secondary-foreground border"}>Get started</Button>
                 </CardHeader>
                 <CardContent className={`col-span-1 mt-2 p-4 ${plan.popular ? "" : "border-t border-dashed border-muted"}`}>
                   <p className="dark:text-white text-zinc-700 font-semibold mb-4 text-sm">{plan.point}</p>

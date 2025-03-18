@@ -30,16 +30,19 @@ function FAQ() {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-24">
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
-        <div className="text-center">
+        <motion.div initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeInOut" }}
+          className="text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Frequently asked questions
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Can't find what you're looking for? Contact our support team.
           </p>
-        </div>
+        </motion.div>
 
         <div className="mt-20 space-y-4">
           {faqs.map((faq, index) => (
@@ -49,15 +52,15 @@ function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white rounded-lg shadow-sm"
+              className="rounded-lg shadow-sm bg-neutral-50 dark:bg-zinc-900 dark:text-white"
             >
               <button
-                className="w-full px-6 py-4 flex items-center justify-between text-left"
+                className="w-full px-6 py-4 flex items-center justify-between text-left dark:text-white"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
                 <span className="font-medium">{faq.question}</span>
                 <ChevronDownIcon
-                  className={`w-5 h-5 text-gray-500 transition-transform ${
+                  className={`w-5 h-5 text-muted-foreground transition-transform ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 />
@@ -71,7 +74,7 @@ function FAQ() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-6 pb-4 text-gray-600">{faq.answer}</p>
+                    <p className="px-6 pb-4 text-muted-foreground">{faq.answer}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
