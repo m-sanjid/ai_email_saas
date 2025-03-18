@@ -5,7 +5,8 @@ export default defineSchema({
   users: defineTable({
     name: v.string(),
     email: v.string(),
-    picture: v.string(),
+    password: v.optional(v.string()),
+    picture: v.optional(v.string()),
     credits: v.number(),
   }),
   emailTemplates: defineTable({
@@ -13,5 +14,8 @@ export default defineSchema({
     design: v.any(),
     description: v.any(),
     email: v.string(),
+    isFavorite: v.optional(v.boolean()),
+    createdAt: v.optional(v.string()),
+    updatedAt: v.optional(v.string()),
   }),
 });
