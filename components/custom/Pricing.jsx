@@ -58,7 +58,7 @@ function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className={`grid grid-cols-1 ${plan.popular ? "grid-cols-2" : ""}`}>
+              className={`grid grid-cols-1 ${plan.popular ? "md:grid-cols-2" : ""}`}>
                 <CardHeader className="col-span-1 space-y-4">
                   <h3 className="">{plan.name}</h3>
                   <div className="mt-4 flex items-baseline">

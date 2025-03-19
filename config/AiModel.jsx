@@ -4,19 +4,28 @@ const {
   HarmBlockThreshold,
 } = require("@google/generative-ai");
 
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.0-flash",
+  model: "gemini-pro",
+  safetySettings: [
+    {
+      category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+    {
+      category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+      threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    },
+  ],
 });
 
 const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
+  temperature: 0.9,
+  topP: 0.8,
   topK: 40,
   maxOutputTokens: 8192,
-  responseMimeType: "application/json",
 };
 
 export const GenerateEmailTemplateAIModel = model.startChat({
@@ -24,5 +33,3 @@ export const GenerateEmailTemplateAIModel = model.startChat({
   history: [],
 });
 
-// const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
-// console.log(result.response.text());

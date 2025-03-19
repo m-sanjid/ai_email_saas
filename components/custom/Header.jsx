@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useUserDetail } from "@/app/provider";
 import SignInButton from "./SignInButton";
-import { Button } from "../ui/button";
 import Link from "next/link";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -15,19 +13,23 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Logo from "./Logo";
 import { useMotionValueEvent, useScroll } from "motion/react";
+import { Button } from "../ui/button";
+import { useSession } from "next-auth/react"; 
 
 function Header() {
-  const { userDetail } = useUserDetail();
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(true);
+  const { data: session } = useSession(); // Get session data
+  
+  // Extract user details from session
+  const userDetail = session?.user;
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 0);
   });
-
 
   useEffect(() => {
     setMounted(true);
@@ -41,21 +43,39 @@ function Header() {
   };
 
   return (
-    <nav className={`sticky ${isScrolled ? "top-3 border rounded-lg max-w-6xl mx-auto" : "top-0"} px-10 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 duration-300 easeInOut`}>
+    <nav
+      className={`sticky ${isScrolled ? "top-3 border rounded-lg max-w-6xl mx-auto" : "top-0"} px-10 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 duration-300 easeInOut`}
+    >
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-4">
           <Logo />
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
+            <Link href="/home">
+              <Button variant="ghost" size="sm">
+                Home
+              </Button>
+            </Link>
             <Link href="/features">
-              <Button variant="ghost" size="sm">Features</Button>
+              <Button variant="ghost" size="sm">
+                Features
+              </Button>
             </Link>
             <Link href="/pricing">
-              <Button variant="ghost" size="sm">Pricing</Button>
+              <Button variant="ghost" size="sm">
+                Pricing
+              </Button>
+            </Link>
+            <Link href="/ai-assistant">
+              <Button variant="ghost" size="sm">
+                AI Assistant
+              </Button>
             </Link>
             {userDetail?.email && (
               <Link href="/dashboard">
-                <Button variant="ghost" size="sm">Dashboard</Button>
+                <Button variant="ghost" size="sm">
+                  Dashboard
+                </Button>
               </Link>
             )}
           </div>
@@ -64,7 +84,14 @@ function Header() {
         {/* Right Side Controls */}
         <div className="flex items-center gap-3">
           {/* Theme Toggle */}
-          <Button variant="ghost" size="icon" className="mr-1" onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="mr-1"
+            onClick={() =>
+              setTheme(resolvedTheme === "dark" ? "light" : "dark")
+            }
+          >
             {mounted && resolvedTheme === "dark" ? (
               <Moon className="h-[1.2rem] w-[1.2rem]" />
             ) : (
@@ -79,13 +106,18 @@ function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="h-9 w-9 cursor-pointer">
-                    <AvatarImage src={userDetail?.picture || ""} alt={userDetail?.email} />
+                    <AvatarImage
+                      src={userDetail?.picture || ""}
+                      alt={userDetail?.email}
+                    />
                     <AvatarFallback>{getInitials()}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem>
-                    <span className="text-xs opacity-70">{userDetail.email}</span>
+                    <span className="text-xs opacity-70">
+                      {userDetail.email}
+                    </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
                     <Link href="/account">Account</Link>

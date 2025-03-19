@@ -35,7 +35,7 @@ function Footer() {
           </div>
         </motion.div>
         <div className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800 text-sm text-center">
-          <p>&copy; {new Date().getFullYear()} TEMMAIL. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Emailigent. All rights reserved.</p>
         </div>
       </div>
     </footer>

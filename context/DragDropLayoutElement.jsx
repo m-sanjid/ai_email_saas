@@ -1,3 +1,6 @@
 import { createContext } from "react";
 
-export const DragDropLayoutElement = createContext();
+export const DragDropLayoutElement = createContext({
+  dragElementLayout: null,
+  setDragElementLayout: () => {}
+});

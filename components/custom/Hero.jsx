@@ -20,7 +20,10 @@ function Hero() {
             transition={{ duration: 0.6, delay: 0.1, ease: "easeInOut" }}
             className="text-center"
           >
-            <Link href="/" className="rounded-md mx-auto flex w-fit items-center gap-2 border p-1 pr-3">
+            <Link
+              href="/"
+              className="rounded-md mx-auto flex w-fit items-center gap-2 border p-1 pr-3"
+            >
               <span className="bg-muted rounded-md px-2 py-1 text-xs">New</span>
               <span className="text-sm">Your Email Marketing Made Easy</span>
               <span className="bg-muted block h-4 w-px"></span>
@@ -32,8 +35,11 @@ function Hero() {
               transition={{ duration: 0.6, delay: 0.2, ease: "easeInOut" }}
               className="mt-8 text-4xl font-semibold md:text-5xl xl:text-5xl xl:[line-height:1.125] text-center"
             >
-              Create Beautiful Email Templates<br/>
-              <div className="inline-block"><LogoText /></div>
+              Create Beautiful Email Templates
+              <br />
+              <div className="inline-block">
+                <LogoText />
+              </div>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -41,7 +47,8 @@ function Hero() {
               transition={{ duration: 0.6, delay: 0.3, ease: "easeInOut" }}
               className="mt-6 max-w-2xl mx-auto  md:text-lg text-muted-foreground leading-relaxed"
             >
-              Transform your email marketing with AI-powered templates. Design stunning, responsive emails in minutes, not hours.
+              Transform your email marketing with AI-powered templates. Design
+              stunning, responsive emails in minutes, not hours.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -50,8 +57,12 @@ function Hero() {
               whileHover={{ scale: 1.05 }}
               className="mt-8"
             >
-              <Button size="lg" asChild className="text-lg px-8 py-6 bg-black dark:bg-neutral-200 dark:hover:bg-white shadow-lg hover:shadow-xl transition-all">
-                <Link href="#">
+              <Button
+                size="lg"
+                asChild
+                className="text-lg px-8 py-6 bg-black dark:bg-neutral-200 dark:hover:bg-white shadow-lg hover:shadow-xl transition-all"
+              >
+                <Link href={`${""}`}>
                   <Rocket className="relative size-4" />
                   <span className="text-nowrap">Start Building</span>
                 </Link>
@@ -74,7 +85,11 @@ function Hero() {
                     key={i}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 + i * 0.1, ease: "easeInOut" }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.6 + i * 0.1,
+                      ease: "easeInOut",
+                    }}
                     className="w-8 h-8 rounded-full border-2 dark:border-white border-zinc-300 bg-gray-400 dark:bg-zinc-700"
                   />
                 ))}
@@ -108,7 +123,11 @@ function Hero() {
               </div>
               <motion.div
                 animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
                 className="absolute -top-6 -right-6 bg-white dark:bg-zinc-900 border p-4 rounded-lg shadow-lg"
               >
                 <div className="flex items-center gap-3">

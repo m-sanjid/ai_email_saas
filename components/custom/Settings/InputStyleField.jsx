@@ -1,21 +1,32 @@
 import { Input } from "@/components/ui/input";
 import React from "react";
 
-function InputStyleField({ label, value, onHandleStyleChange, type = "px" }) {
-  const FormattedValue = (value_) => {
-    if (!value_) return 0;
-    return Number(value_.toString().replace(type, ""));
+function FormattedValue(value) {
+  if (!value) return "";
+  // Convert to string if it's a number
+  const stringValue = String(value);
+  return stringValue.replace(/[^0-9]/g, "");
+}
+
+function InputStyleField({ label, value = "", type = "px", onHandleChange }) {
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    onHandleChange(newValue + type);
   };
+
   return (
-    <div>
-      <label>{label}</label>
-      <div className="flex">
+    <div className="space-y-2">
+      <label className="text-sm font-medium">{label}</label>
+      <div className="relative">
         <Input
           type="text"
           value={FormattedValue(value)}
-          onChange={(e) => onHandleStyleChange(e.target.value + type)}
+          onChange={handleChange}
+          className="pr-8"
         />
-        <h2 className="p-1.5 bg-gray-100 rounded-r-lg -ml-1">{type}</h2>
+        <span className="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500">
+          {type}
+        </span>
       </div>
     </div>
   );
